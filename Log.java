@@ -6,38 +6,43 @@ import java.nio.file.Paths;
 import java.io.FileWriter;  
 
 public class Log {
-    public static void main(String[] agrs) {
+
+    public static void main(String[] args) {
 
       String toWrite = "";
 
       try {
-      Files.createDirectories(Paths.get("./logs"));
-      System.out.println("folder created successfully");
-
+        Files.createDirectories(Paths.get("./logs"));
+        printif("folder created successfully", args);
       }
       catch (IOException e) {
-            System.err.println("Failed to create folder: " + e.getMessage());
-        }
-
-    int i = 0;
-    while (true) {
-    try {
-
-      File myObj = new File("./logs/log" + i + ".txt"); 
-      if (myObj.createNewFile()) { 
-        FileWriter myWriter = new FileWriter(myObj);
-        myWriter.write(toWrite);
-        myWriter.close();
-        System.out.println("File created: " + myObj.getName());
-        System.exit(0);
-      } else {
-        System.out.println("File already exists.");
-        i++;
+        System.err.println("Failed to create folder: " + e.getMessage());
       }
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace(); // Print error details
-            }
+
+      int i = 0;
+      while (true) {
+        try {
+          File myObj = new File("./logs/log" + i + ".txt"); 
+          if (myObj.createNewFile()) { 
+            FileWriter myWriter = new FileWriter(myObj);
+            myWriter.write(toWrite);
+            myWriter.close();
+            printif("File created: " + myObj.getName(), args);
+            System.exit(0);
+          } else {
+            printif("File already exists.", args);
+            i++;
+          }
+        } catch (IOException e) {
+          printif("An error occurred.",args);
+          e.printStackTrace(); // Print error details
         }
+      }
+    }
+
+    public static void printif(String message, String[] args) {
+      if (args != null && args.length > 0 && "--debug".equals(args[0])) {
+        System.out.println(message);
+      }
     }
 }
