@@ -1,16 +1,32 @@
 import java.io.File;   
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.FileWriter;  
 
 public class Log {
     public static void main(String[] agrs) {
+
+      try {
+
+      Files.createDirectories(Paths.get("./logs"));
+      System.out.println("folder created successfully");
+
+      }
+      catch (IOException e) {
+            System.err.println("Failed to create folder: " + e.getMessage());
+        }
 
     int i = 0;
     while (true) {
     try {
 
-      File myObj = new File("log" + i + ".txt"); 
-      if (myObj.createNewFile()) {          
-
+      File myObj = new File("./logs/log" + i + ".txt"); 
+      if (myObj.createNewFile()) { 
+        FileWriter myWriter = new FileWriter(myObj);
+        myWriter.write("Files in Java might be tricky, but it is fun enough!");
+        myWriter.close();
         System.out.println("File created: " + myObj.getName());
         System.exit(0);
       } else {
