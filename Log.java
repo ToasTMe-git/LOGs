@@ -8,8 +8,9 @@ import java.io.FileWriter;
 public class Log {
     public static void main(String[] agrs) {
 
-      try {
+      String toWrite = "";
 
+      try {
       Files.createDirectories(Paths.get("./logs"));
       System.out.println("folder created successfully");
 
@@ -25,7 +26,7 @@ public class Log {
       File myObj = new File("./logs/log" + i + ".txt"); 
       if (myObj.createNewFile()) { 
         FileWriter myWriter = new FileWriter(myObj);
-        myWriter.write("Files in Java might be tricky, but it is fun enough!");
+        myWriter.write(toWrite);
         myWriter.close();
         System.out.println("File created: " + myObj.getName());
         System.exit(0);
