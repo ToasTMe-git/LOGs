@@ -7,11 +7,14 @@ import java.io.FileWriter;
 
 public class Log {
 
-    public static void main(String[] args) {
 
       String toWrite = "";
 
-      try {
+      public Log(String write,String[] args) {
+	      this.toWrite = write;
+      
+
+	    try {
         Files.createDirectories(Paths.get("./logs"));
         printif("folder created successfully", args);
       }
@@ -35,7 +38,7 @@ public class Log {
           }
         } catch (IOException e) {
           printif("An error occurred.",args);
-          e.printStackTrace(); // Print error details
+          e.printStackTrace();
         }
       }
     }
@@ -45,4 +48,4 @@ public class Log {
         System.out.println(message);
       }
     }
-}
+  }
