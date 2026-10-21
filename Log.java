@@ -23,7 +23,8 @@ public class Log {
       }
 
       int i = 0;
-      while (true) {
+      boolean isInLoop = true;
+      while (isInLoop) {
         try {
           File myObj = new File("./logs/log" + i + ".txt"); 
           if (myObj.createNewFile()) { 
@@ -31,7 +32,7 @@ public class Log {
             myWriter.write(toWrite);
             myWriter.close();
             printif("File created: " + myObj.getName(), args);
-            System.exit(0);
+            isInLoop = false;
           } else {
             printif("File already exists.", args);
             i++;
