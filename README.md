@@ -22,7 +22,7 @@ Here is how to initialize and use the logger in your `Main` class:
 
 ```java
 public class Main {
-    private static final Logger logger = new Logger("Main");
+    private static final Log log = new Log("Main");
 
     public static void main(String[] args) {
         logger.info("Application started.");
