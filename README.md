@@ -44,6 +44,3 @@ public class Main {
 }
 ```
 
-## 📄 License
-
-[MIT](LICENSE)
