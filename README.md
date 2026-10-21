@@ -20,6 +20,7 @@ A simple Java logging utility that saves text messages into separate `.txt` file
 
 ```text
 project/
+├── Main.java
 ├── Log.java
 └── logs/
     ├── log0.txt
@@ -31,41 +32,66 @@ The `logs/` directory and its files are generated automatically.
 
 ## Usage
 
-Create a `Log` object with the message you want to save and the program arguments.
+### Main.java
 
-Conceptually:
+The following example creates a logger and writes a message to a log file.
 
-- `write` — the text to store in the log file.
-- `args` — command-line arguments used to enable debug output.
+```java
+public class Main {
+    public static void main(String[] args) {
+        Log myToastyLog = new Log("this is a toasty log", args);
+    }
+}
+```
 
-### Debug Mode
+### Compile and Run
 
-Run your Java program with the argument:
+Compile both Java files:
+
+```bash
+javac Main.java Log.java
+```
+
+Run the program:
+
+```bash
+java Main
+```
+
+To enable debug output:
 
 ```bash
 java Main --debug
 ```
 
-When enabled, the logger prints status messages such as:
+### Example Output
+
+With debug mode enabled:
 
 ```text
 folder created successfully
 File created: log0.txt
 ```
 
-Without `--debug`, these status messages are suppressed.
+The generated `logs/log0.txt` file contains:
+
+```text
+this is a toasty log
+```
+
+If `log0.txt` already exists, the logger tries `log1.txt`, then `log2.txt`, and continues until it finds an available filename.
 
 ## How It Works
 
-1. The constructor receives the message and arguments.
-2. The program creates the `logs` directory if necessary.
-3. It starts checking filenames from `log0.txt`.
-4. If a filename already exists, it tries the next number.
-5. When it finds an available filename, it creates the file and writes the message.
+1. The `Main` class creates a `Log` object.
+2. The constructor receives the message and command-line arguments.
+3. The program creates the `logs` directory if necessary.
+4. It searches for an available numbered log filename.
+5. The message is written into the new text file.
 6. The program exits after successfully creating the file.
 
-## Error Handling
+## Debug Mode
 
-- Directory creation errors are reported to standard error.
-- File creation and writing errors are caught as `IOException`.
-- Debug messages are displayed only when debug mode is enabled.
+The `--debug` argument enables status messages through the `printif()` method.
+
+Without this argument, debug messages are suppressed.
